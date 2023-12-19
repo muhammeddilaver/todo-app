@@ -1,0 +1,30 @@
+# Dependency directories
+node_modules/
+
+# Optional: Uncomment the following line if using npm
+# /npm-debug.log
+
+# Optional: Uncomment the following line if using yarn
+# /yarn-error.log
+
+# Environment configuration
+.env
+
+# IDE files
+.vscode/
+.idea/
+
+# Build output
+/build/
+/dist/
+
+# Log files
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Optional: Uncomment the following line if using TypeScript
+# TypeScript build directory
+*.tsbuildinfo
