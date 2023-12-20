@@ -3,21 +3,14 @@
 
 Restful API developed for TODO App FrontEnd
 
-## Yükleme 
-
-benim-projem'i npm kullanarak yükleyin
+## Installation and Run
 
 ```bash 
   npm install
+  ( for local ) npx ts-node ./src/index.ts
 ```
     
 ## API Usage
-
-#### Tüm öğeleri getir
-
-```http
-  GET /
-```
 
 | Method | Path | Parameters     | Description                |
 | :----  | :-------- | :------- | :------------------------- |
