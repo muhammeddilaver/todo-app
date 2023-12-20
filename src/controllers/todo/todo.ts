@@ -3,7 +3,11 @@ import { NextFunction, Request, Response } from "express";
 import ToDos from "../../models/todos";
 import todoCreateValidationSchema from "./validations";
 
-export const Create = async (req: Request, res: Response, next: NextFunction) => {
+export const Create = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     const input = req.body;
 
     try {
@@ -22,7 +26,11 @@ export const Create = async (req: Request, res: Response, next: NextFunction) =>
     }
 };
 
-export const Update = async (req: Request, res: Response, next: NextFunction) => {
+export const Update = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     const { id } = req.params;
     const input = req.body;
     try {
@@ -48,32 +56,46 @@ export const Get = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
-export const GetList = async (req: Request, res: Response, next: NextFunction) => {
+export const GetList = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     const limit = 10;
-    
-    let { page } = req.query && { page: 0 };
 
-    if (page < 1) {
-        page = 1;
+    let { page } = req.query;
+
+    if (page === undefined || isNaN(+page) || +page < 1) {
+        page = "1";
     }
-   
-    const skip = (page - 1) * limit;
-    
+
+    const skip = (Number(page) - 1) * limit;
+
     try {
+        const totalCount = await ToDos.countDocuments();
+        
         const todos = await ToDos.find()
             .sort({ _id: -1 })
             .skip(skip)
             .limit(limit);
+        const hasNextPage = skip + limit < totalCount;
 
-        res.json(todos);
+        res.json({
+            todos,
+            hasNextPage,
+        });
     } catch (e) {
         next(e);
     }
 };
 
-export const Delete = async (req: Request, res: Response, next: NextFunction) => {
+export const Delete = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     const { id } = req.params;
-    
+
     try {
         const deleted = await ToDos.findByIdAndDelete(id);
 
