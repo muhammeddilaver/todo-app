@@ -61,7 +61,7 @@ export const GetList = async (
     res: Response,
     next: NextFunction
 ) => {
-    const limit = 10;
+    /* const limit = 10;
 
     let { page } = req.query;
 
@@ -69,20 +69,19 @@ export const GetList = async (
         page = "1";
     }
 
-    const skip = (Number(page) - 1) * limit;
+    const skip = (Number(page) - 1) * limit; */
 
     try {
-        const totalCount = await ToDos.countDocuments();
-        
-        const todos = await ToDos.find()
-            .sort({ _id: -1 })
-            .skip(skip)
+        /*  const totalCount = await ToDos.countDocuments(); */
+
+        const todos = await ToDos.find().sort({ _id: -1 });
+        /* .skip(skip)
             .limit(limit);
-        const hasNextPage = skip + limit < totalCount;
+        const hasNextPage = skip + limit < totalCount; */
 
         res.json({
             todos,
-            hasNextPage,
+            /* hasNextPage, */
         });
     } catch (e) {
         next(e);
